@@ -12,9 +12,11 @@ git clone https://github.com/pingcap/tidb.git
 ```
 
 ### Build the projects
+```sh
 cd $projects/pd && make
 cd $projects/tikv && make build
 cd $projects/tidb && make
+```
 
 ### Start the servers
 ```
