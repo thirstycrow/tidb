@@ -1438,6 +1438,7 @@ func (s *session) Txn(active bool) (kv.Transaction, error) {
 			s.sessionVars.TxnCtx.StartTS = 0
 			return &s.txn, err
 		}
+		logutil.BgLogger().Info("hello transaction (Txn)")
 		s.sessionVars.TxnCtx.StartTS = s.txn.StartTS()
 		if s.sessionVars.TxnCtx.IsPessimistic {
 			s.txn.SetOption(kv.Pessimistic, true)
@@ -1508,6 +1509,7 @@ func (s *session) NewTxn(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
+	logutil.BgLogger().Info("hello transaction (NewTxn)")
 	txn.SetVars(s.sessionVars.KVVars)
 	if s.GetSessionVars().GetReplicaRead().IsFollowerRead() {
 		txn.SetOption(kv.ReplicaRead, kv.ReplicaReadFollower)
@@ -2215,6 +2217,7 @@ func (s *session) InitTxnWithStartTS(startTS uint64) error {
 	if err != nil {
 		return err
 	}
+        logutil.BgLogger().Info("hello transaction (InitTxnWithStartTS)")
 	txn.SetVars(s.sessionVars.KVVars)
 	s.txn.changeInvalidToValid(txn)
 	err = s.loadCommonGlobalVariablesIfNeeded()
